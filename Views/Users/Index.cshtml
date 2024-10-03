@@ -1,0 +1,39 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "Index";
+}
+<a asp-controller="Users" asp-action="Register" class="btn btn-info my-3">Register</a>
+<h1>Users</h1>
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <td>@Html.DisplayNameFor(Model => Model.UserName)</td>
+                <td>@Html.DisplayNameFor(Model => Model.Password)</td>
+                <td>@Html.DisplayNameFor(Model => Model.CreateAt)</td>
+                <td>@Html.DisplayNameFor(Model => Model.IsActive)</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Password</td>
+                    <td>@user.CreateAt</td>
+                    <td>
+                            <a asp-controller="Users" asp-action="changeUserState" asp-route-id="@user.UserId" class=" btn @(user.IsActive? "btn-success" : "btn-danger")">Active</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <div class="alert alert-info fw-bolder">No Data Found</div>
+}
+
+
